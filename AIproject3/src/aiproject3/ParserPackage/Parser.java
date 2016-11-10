@@ -23,6 +23,7 @@ public abstract class Parser {
     abstract void convertToNum(); //Converts the data to floating point values
     abstract void removeID(); //Removes the IDs in the data sets that require it
     abstract void moveClass(); //Moves the data's classification to the end of the array 
+    abstract String fileName(); //Returns the file name
     
     //Concrete methods
     private void readInData(){ // Reads in the data from the .txt files
