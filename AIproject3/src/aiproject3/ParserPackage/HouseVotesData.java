@@ -23,4 +23,9 @@ public class HouseVotesData extends Parser{
     void moveClass(){// Moves the classification value to the end of the array
     
     }
+    
+    @Override
+    String fileName(){ // Returns the data file name
+        return "/data/house-votes-84.data.txt";
+    }
 }
