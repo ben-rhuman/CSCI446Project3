@@ -10,7 +10,7 @@ package aiproject3.ParserPackage;
  * @author k28h885
  */
 public class BreastCancerData extends Parser {
-    
+    protected String fileName = "breast-cancerDAta.txt";
     @Override
     void convertToNum(){ // Converts the String data into floating point data
     
@@ -24,4 +24,7 @@ public class BreastCancerData extends Parser {
     @Override
     void moveClass(){} // Classification value is already in the correct position
     
+    String fileName(){ // Returns the data file name
+        return "/data/breast-cancer-wisconsin.data.txt";
+    }
 }
