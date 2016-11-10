@@ -24,4 +24,8 @@ public class BreastCancerData extends Parser {
     @Override
     void moveClass(){} // Classification value is already in the correct position
     
+    @Override
+    String fileName(){ // Returns the data file name
+        return "/data/soybean-small.data.txt";
+    }
 }
