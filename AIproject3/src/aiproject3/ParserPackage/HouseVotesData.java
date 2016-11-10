@@ -17,11 +17,12 @@ public class HouseVotesData extends Parser{
     }
     
     @Override
-    void removeID(){} //Does nothing since no IDs to remove
-        
-    @Override
-    void moveClass(){// Moves the classification value to the end of the array
-    
+    void moveClass(){// Moves the classification value to the end of the list
+        for(int i = 0; i < data.size(); i++){
+            double temp = data.get(i).get(0);
+            data.get(i).remove(0);
+            data.get(i).add(temp);
+        }
     }
     
     @Override
