@@ -23,6 +23,6 @@ public class SoybeanData extends Parser{
     void moveClass() {} // Classification value is already in the correct position
 
     String fileName(){ // Returns the data file name
-        return "/data/soybean-small.data.txt";
+        return "soybean-small.data.txt";
     }
 }

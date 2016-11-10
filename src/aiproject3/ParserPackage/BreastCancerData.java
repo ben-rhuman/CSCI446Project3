@@ -25,6 +25,6 @@ public class BreastCancerData extends Parser {
     void moveClass(){} // Classification value is already in the correct position
     
     String fileName(){ // Returns the data file name
-        return "/data/breast-cancer-wisconsin.data.txt";
+        return "breast-cancer-wisconsin.data.txt";
     }
 }

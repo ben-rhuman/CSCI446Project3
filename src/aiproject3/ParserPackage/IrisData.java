@@ -23,6 +23,6 @@ public class IrisData extends Parser{
     void moveClass(){} // Classification value is already in the correct position
     
     String fileName(){ // Returns the data file name
-        return "/data/iris.data.txt";
+        return "iris.data.txt";
     }
 }

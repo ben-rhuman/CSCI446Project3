@@ -25,6 +25,6 @@ public class HouseVotesData extends Parser{
     }
     
     String fileName(){ // Returns the data file name
-        return "/data/house-votes-84.data.txt";
+        return "house-votes-84.data.txt";
     }
 }

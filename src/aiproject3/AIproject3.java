@@ -5,6 +5,8 @@
  */
 package aiproject3;
 
+import java.io.File;
+
 /**
  *
  * @author k28h885
@@ -16,6 +18,8 @@ public class AIproject3 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        String filePath = new File("").getAbsolutePath();
+        System.out.println(filePath);
     }
     
 }

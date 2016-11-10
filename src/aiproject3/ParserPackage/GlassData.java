@@ -26,6 +26,6 @@ public class GlassData extends Parser{
     void moveClass(){} // Classification value is already in the correct position
     
     String fileName(){ // Returns the data file name
-        return "/data/glass.data.txt";
+        return "glass.data.txt";
     }
 }
