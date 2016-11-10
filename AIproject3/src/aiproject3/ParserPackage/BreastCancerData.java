@@ -26,6 +26,6 @@ public class BreastCancerData extends Parser {
     
     @Override
     String fileName(){ // Returns the data file name
-        return "/data/soybean-small.data.txt";
+        return "/data/breast-cancer-wisconsin.data.txt";
     }
 }
