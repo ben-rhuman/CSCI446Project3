@@ -29,4 +29,9 @@ public class HouseVotesData extends Parser{
     String fileName(){ // Returns the data file name
         return "/data/house-votes-84.data.txt";
     }
+
+    @Override
+    void removeID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
