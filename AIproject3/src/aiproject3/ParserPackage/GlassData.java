@@ -25,4 +25,8 @@ public class GlassData extends Parser{
     @Override
     void moveClass(){} // Classification value is already in the correct position
     
+    @Override
+    String fileName(){ // Returns the data file name
+        return "/data/glass.data.txt";
+    }
 }
