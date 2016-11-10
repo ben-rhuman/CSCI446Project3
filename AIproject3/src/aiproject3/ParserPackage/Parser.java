@@ -18,33 +18,28 @@ import java.util.Random;
 public abstract class Parser {
 
     //Variables
-    ArrayList<ArrayList<String>> group;
-    ArrayList<ArrayList<Double>> data = new ArrayList<ArrayList<Double>>();
+    protected ArrayList<ArrayList<String>> data;
 
     //Parser constructor
     public Parser() {
         readInData();
         removeID();
-        convertToNum();
-        replaceMissingValue();
+        handleMissingVal();
         moveClass();
-        printData();
     }
 
     //Abstract methods
-    abstract void convertToNum(); //Converts the data to floating point values
-
-    abstract void removeID(); //Removes the IDs in the data sets that require it
-
+    abstract void removeID(); //Removes the IDs in the data sets that require it\
+    abstract void handleMissingVal(); //Handles the missing value in the data sets
     abstract void moveClass(); //Moves the data's classification to the end of the array 
-
-    abstract String fileName();
+    abstract String fileName(); //Returns the appropriate file name for the data set
 
     //Concrete methods
-    public void readInData() { // Reads in the data from the .txt files
-        this.group = new ArrayList<ArrayList<String>>();
-
-        String filePath = new File("").getAbsolutePath() + "\\src\\aiproject3\\ParserPackage" + fileName(); //Creates the file path of the desired data set
+    protected void readInData() { // Reads in the data from the .txt files
+        this.data = new ArrayList<ArrayList<String>>();
+        
+        String filePath = new File("").getAbsolutePath() + "/src/aiproject3/ParserPackage/data/" + fileName(); //Creates the file path of the desired data set for windows
+        
         File file = new File(filePath);
 
         if (file.isFile()) {
@@ -58,7 +53,7 @@ public abstract class Parser {
                     for (String t : tokens) {
                         data.add(t);
                     }
-                    group.add(data);
+                    this.data.add(data);
                 }
             } catch (FileNotFoundException ex) {
                 System.out.println("file not found");;
@@ -69,27 +64,32 @@ public abstract class Parser {
         }
     }
 
-    private void replaceMissingValue() { //Randomly replaces the missing data with a value in a desired range
+    protected void replaceMissingValue() { //Randomly replaces the missing data with a value in a desired range
         Random r = new Random();
         for (int i = 0; i < data.size(); i++) { // i is the line number
             for (int j = 0; j < data.get(i).size(); j++) { // j is the data number.
-                if (data.get(i).get(j) == null) {
-                    Double attribute = null;
-                    while (attribute == null) { // While the selected attribute is null
+                if (data.get(i).get(j).equals("?")) {
+                    String attribute = "?";
+                    while (attribute.equals("?")) { // While the selected attribute is null
                         attribute = data.get(r.nextInt(data.size())).get(j); // select a random line in the data and select the desired attribute.
                     }
                     data.get(i).set(j, attribute);
+                    System.out.println("Replaced value: " + data.get(i).get(j));
                 }
             }
         }
     }
 
-    private void printData() {
+    private void printData() { //Prints out the data set
         for (int i = 0; i < data.size(); i++) {
             for (int j = 0; j < data.get(i).size(); j++) {
                 System.out.print(data.get(i).get(j) + ", ");
             }
             System.out.println("");
         }
+    }
+    
+    public ArrayList getData(){
+        return data;
     }
 }
