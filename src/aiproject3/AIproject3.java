@@ -5,6 +5,7 @@
  */
 package aiproject3;
 
+import aiproject3.ParserPackage.*;
 import java.io.File;
 
 /**
@@ -18,8 +19,9 @@ public class AIproject3 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        String filePath = new File("").getAbsolutePath();
-        System.out.println(filePath);
+        //Parser breastCancer = new BreastCancerData();
+        //Parser glassData = new GlassData();
+        Parser houseVotesData = new HouseVotesData();
     }
     
 }

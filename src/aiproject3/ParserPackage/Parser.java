@@ -22,8 +22,8 @@ public abstract class Parser {
     //Parser constructor
     public Parser(){
         readInData();
-        convertToNum();
         removeID();
+        convertToNum();
         replaceMissingValue();
         moveClass();
     }
@@ -69,8 +69,9 @@ public abstract class Parser {
 
         for (int i = 0; i < group.size(); i++) {
             for (int j = 0; j < group.get(i).size(); j++) {
-                System.out.println(group.get(i).get(j));
+                System.out.print(group.get(i).get(j) + ", ");
             }
+            System.out.println("");
         }
        
     }
