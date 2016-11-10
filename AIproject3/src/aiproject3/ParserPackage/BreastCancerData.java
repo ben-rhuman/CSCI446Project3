@@ -18,21 +18,21 @@ public class BreastCancerData extends Parser {
         for (int i = 0; i < group.size(); i++) {
             
             ArrayList<Double> list = new ArrayList<Double>();
-
             for (int j = 0; j < group.get(i).size(); j++) {
                 String s = group.get(i).get(j); //getting the first string
                 Double value;
                 if (s.equals("?")) {
                     value = null;
+                   
                 } else {
                     value = Double.parseDouble(s); //converting to a double
+                   
                 }
                 list.add(value);
-
             }
             data.add(list);
         }
-    }//check for ? values and words and y/n
+    }
 
     @Override
     void removeID() { // Removes the identification number from the data set

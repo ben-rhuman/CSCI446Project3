@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class reads in and normalizes the data sets to be generic and compatible
@@ -18,7 +19,7 @@ public abstract class Parser {
 
     //Variables
     ArrayList<ArrayList<String>> group;
-    ArrayList<ArrayList<Double>> data;
+    ArrayList<ArrayList<Double>> data = new ArrayList<ArrayList<Double>>();
 
     //Parser constructor
     public Parser() {
@@ -27,6 +28,7 @@ public abstract class Parser {
         convertToNum();
         replaceMissingValue();
         moveClass();
+        printData();
     }
 
     //Abstract methods
@@ -42,7 +44,7 @@ public abstract class Parser {
     public void readInData() { // Reads in the data from the .txt files
         this.group = new ArrayList<ArrayList<String>>();
 
-        String filePath = new File("").getAbsolutePath() + "\\src\\aiproject3\\ParserPackage\\data\\" + fileName(); //Creates the file path of the desired data set
+        String filePath = new File("").getAbsolutePath() + "\\src\\aiproject3\\ParserPackage" + fileName(); //Creates the file path of the desired data set
         File file = new File(filePath);
 
         if (file.isFile()) {
@@ -62,18 +64,32 @@ public abstract class Parser {
                 System.out.println("file not found");;
             } catch (IOException ex) {
             }
-        }
-
-        for (int i = 0; i < group.size(); i++) {
-            for (int j = 0; j < group.get(i).size(); j++) {
-                System.out.print(group.get(i).get(j) + ", ");
-            }
-            System.out.println("");
+        } else {
+            System.out.println("File not found");
         }
     }
 
     private void replaceMissingValue() { //Randomly replaces the missing data with a value in a desired range
+        Random r = new Random();
+        for (int i = 0; i < data.size(); i++) { // i is the line number
+            for (int j = 0; j < data.get(i).size(); j++) { // j is the data number.
+                if (data.get(i).get(j) == null) {
+                    Double attribute = null;
+                    while (attribute == null) { // While the selected attribute is null
+                        attribute = data.get(r.nextInt(data.size())).get(j); // select a random line in the data and select the desired attribute.
+                    }
+                    data.get(i).set(j, attribute);
+                }
+            }
+        }
+    }
 
+    private void printData() {
+        for (int i = 0; i < data.size(); i++) {
+            for (int j = 0; j < data.get(i).size(); j++) {
+                System.out.print(data.get(i).get(j) + ", ");
+            }
+            System.out.println("");
+        }
     }
 }
-
