@@ -41,10 +41,10 @@ public abstract class Parser {
     //Concrete methods
     public void readInData() { // Reads in the data from the .txt files
         this.group = new ArrayList<ArrayList<String>>();
-
+        
         String filePath = new File("").getAbsolutePath() + "\\src\\aiproject3\\ParserPackage\\data\\" + fileName(); //Creates the file path of the desired data set
         File file = new File(filePath);
-
+       
         if (file.isFile()) {
             BufferedReader inputStream = null;
             try {
