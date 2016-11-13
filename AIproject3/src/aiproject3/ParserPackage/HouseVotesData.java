@@ -12,6 +12,9 @@ package aiproject3.ParserPackage;
 public class HouseVotesData extends Parser{
     
     @Override
+    void removeID() {} // No IDs to remove
+    
+    @Override
     void moveClass(){// Moves the classification value to the end of the list
         for(int i = 0; i < data.size(); i++){
             String temp = data.get(i).get(0);
@@ -29,5 +32,5 @@ public class HouseVotesData extends Parser{
     }
 
     @Override
-    void removeID() {} // No IDs to remove
+    void discretize() {} //No need to data bin 
 }

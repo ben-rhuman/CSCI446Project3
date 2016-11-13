@@ -20,13 +20,19 @@ public class GlassData extends Parser {
         }
 
     }
-    
+
     @Override
-    void handleMissingVal(){}// No missing data
+    void handleMissingVal() {
+    }// No missing data
 
     @Override
     void moveClass() {
     } // Classification value is already in the correct position
+
+    @Override
+    void discretize() { //Using a data binning method to discretize data
+        super.discretizeConcrete();
+    }
 
     @Override
     String fileName() { // Returns the data file name

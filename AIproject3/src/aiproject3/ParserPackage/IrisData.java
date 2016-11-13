@@ -25,6 +25,11 @@ public class IrisData extends Parser {
     } // Classification value is already in the correct position
 
     @Override
+    void discretize() { //Using a data binning method to discretize data
+        super.discretizeConcrete();
+    }    
+    
+    @Override
     String fileName() { // Returns the data file name
         return "iris.data.txt";
     }

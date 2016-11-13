@@ -10,8 +10,11 @@ import java.util.ArrayList;
 public class AIproject3 {
 
     public static void main(String[] args) {
-        Parser p = new BreastCancerData();
-        ArrayList<ArrayList<String>> data = p.getData();
+//        Parser g = new GlassData();   
+//        Parser b = new BreastCancerData();     
+//        Parser h = new HouseVotesData();      
+        Parser i = new IrisData();
+//        Parser s = new SoybeanData();
 
     }
 }

@@ -29,7 +29,10 @@ public class BreastCancerData extends Parser {
     } // Classification value is already in the correct position
 
     @Override
+    void discretize() {}// No need to data bin
+    
+    @Override
     String fileName() { // Returns the data file name
         return "breast-cancer-wisconsin.data.txt";
-    }
+    }   
 }

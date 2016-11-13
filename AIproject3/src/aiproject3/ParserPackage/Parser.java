@@ -26,13 +26,17 @@ public abstract class Parser {
         removeID();
         handleMissingVal();
         moveClass();
+        discretize();
+        printData();
     }
 
     //Abstract methods
     abstract void removeID(); //Removes the IDs in the data sets that require it\
     abstract void handleMissingVal(); //Handles the missing value in the data sets
     abstract void moveClass(); //Moves the data's classification to the end of the array 
+    abstract void discretize(); //Converts continous data into discrete data
     abstract String fileName(); //Returns the appropriate file name for the data set
+    
 
     //Concrete methods
     protected void readInData() { // Reads in the data from the .txt files
@@ -75,6 +79,36 @@ public abstract class Parser {
                     }
                     data.get(i).set(j, attribute);
                     System.out.println("Replaced value: " + data.get(i).get(j));
+                }
+            }
+        }
+    }
+    
+    protected void discretizeConcrete(){
+        int bins = 10; //Somewhat arbitrary value that will require some tuning
+        double binSize;
+        for (int j = 0; j < data.get(1).size() - 1 ; j++) {
+            
+            double low = Double.POSITIVE_INFINITY;
+            double high = Double.NEGATIVE_INFINITY;
+            
+            for (int i = 0; i < data.size(); i++) {
+                if (Double.parseDouble(data.get(i).get(j)) < low) {
+                    low = Double.parseDouble(data.get(i).get(j));
+                }
+                if (Double.parseDouble(data.get(i).get(j)) > high) {
+                    high = Double.parseDouble(data.get(i).get(j));
+                }
+            }
+            
+            binSize = (high - low)/bins;
+            
+            for(int i = 0; i < data.size(); i++){
+                for(int k = 1; k <= bins; k++){
+                    if(Double.parseDouble(data.get(i).get(j)) <= low+(binSize*k)){
+                        data.get(i).set(j, Integer.toString(k));
+                        break;
+                    }
                 }
             }
         }
