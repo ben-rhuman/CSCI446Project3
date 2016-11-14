@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class reads in and normalizes the data sets to be generic and compatible
@@ -17,34 +18,38 @@ import java.util.ArrayList;
 public abstract class Parser {
 
     //Variables
-    ArrayList<ArrayList<String>> group;
-    ArrayList<ArrayList<Double>> data;
+    protected ArrayList<ArrayList<String>> data;
 
     //Parser constructor
     public Parser() {
         readInData();
         removeID();
-        convertToNum();
-        replaceMissingValue();
+        handleMissingVal();
         moveClass();
+        discretize();
+        //printData();
+        
     }
 
     //Abstract methods
-    abstract void convertToNum(); //Converts the data to floating point values
+    abstract void removeID(); //Removes the IDs in the data sets that require it\
 
-    abstract void removeID(); //Removes the IDs in the data sets that require it
+    abstract void handleMissingVal(); //Handles the missing value in the data sets
 
     abstract void moveClass(); //Moves the data's classification to the end of the array 
 
-    abstract String fileName();
+    abstract void discretize(); //Converts continous data into discrete data
+
+    abstract String fileName(); //Returns the appropriate file name for the data set
 
     //Concrete methods
-    public void readInData() { // Reads in the data from the .txt files
-        this.group = new ArrayList<ArrayList<String>>();
-        
-        String filePath = new File("").getAbsolutePath() + "\\src\\aiproject3\\ParserPackage\\data\\" + fileName(); //Creates the file path of the desired data set
+    protected void readInData() { // Reads in the data from the .txt files
+        this.data = new ArrayList<ArrayList<String>>();
+
+        String filePath = new File("").getAbsolutePath() + "/src/aiproject3/ParserPackage/data/" + fileName(); //Creates the file path of the desired data set for windows
+
         File file = new File(filePath);
-       
+
         if (file.isFile()) {
             BufferedReader inputStream = null;
             try {
@@ -56,24 +61,95 @@ public abstract class Parser {
                     for (String t : tokens) {
                         data.add(t);
                     }
-                    group.add(data);
+                    this.data.add(data);
                 }
             } catch (FileNotFoundException ex) {
                 System.out.println("file not found");;
             } catch (IOException ex) {
             }
+        } else {
+            System.out.println("File not found");
         }
+    }
 
-        for (int i = 0; i < group.size(); i++) {
-            for (int j = 0; j < group.get(i).size(); j++) {
-                System.out.print(group.get(i).get(j) + ", ");
+    protected void replaceMissingValue() { //Randomly replaces the missing data with a value in a desired range
+        Random r = new Random();
+        for (int i = 0; i < data.size(); i++) { // i is the line number
+            for (int j = 0; j < data.get(i).size(); j++) { // j is the data number.
+                if (data.get(i).get(j).equals("?")) {
+                    String attribute = "?";
+                    while (attribute.equals("?")) { // While the selected attribute is null
+                        attribute = data.get(r.nextInt(data.size())).get(j); // select a random line in the data and select the desired attribute.
+                    }
+                    data.get(i).set(j, attribute);
+                    //System.out.println("Replaced value: " + data.get(i).get(j));
+                }
+            }
+        }
+    }
+
+    protected void discretizeConcrete() {
+        int bins = 10; //Somewhat arbitrary value that will require some tuning
+        double binSize;
+        for (int j = 0; j < data.get(1).size() - 1; j++) {
+
+            double low = Double.POSITIVE_INFINITY;
+            double high = Double.NEGATIVE_INFINITY;
+
+            for (int i = 0; i < data.size(); i++) {
+                if (Double.parseDouble(data.get(i).get(j)) < low) {
+                    low = Double.parseDouble(data.get(i).get(j));
+                }
+                if (Double.parseDouble(data.get(i).get(j)) > high) {
+                    high = Double.parseDouble(data.get(i).get(j));
+                }
+            }
+
+            binSize = (high - low) / bins;
+
+            for (int i = 0; i < data.size(); i++) {
+                for (int k = 1; k <= bins; k++) {
+                    if (Double.parseDouble(data.get(i).get(j)) <= low + (binSize * k)) {
+                        data.get(i).set(j, Integer.toString(k));
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public ArrayList<ArrayList<String>> split(boolean train) { //to test out algorithms 
+        ArrayList<ArrayList<String>> d1 = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> d2 = new ArrayList<ArrayList<String>>();
+        
+         for (int i = 0; i < data.size(); i++){
+             
+             if(i >= data.size()/10){
+                  d2.add(data.get(i));
+             }else{
+                 d1.add(data.get(i));
+                 
+             }
+         }
+         
+        
+        if (train) {
+            return d1;
+        } else {
+            return d2;
+        }
+    }
+
+    private void printData() { //Prints out the data set
+        for (int i = 0; i < data.size(); i++) {
+            for (int j = 0; j < data.get(i).size(); j++) {
+                System.out.print(data.get(i).get(j) + ", ");
             }
             System.out.println("");
         }
     }
 
-    private void replaceMissingValue() { //Randomly replaces the missing data with a value in a desired range
-
+    public ArrayList getData() {
+        return data;
     }
 }
-

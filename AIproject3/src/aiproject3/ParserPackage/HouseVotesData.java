@@ -12,26 +12,25 @@ package aiproject3.ParserPackage;
 public class HouseVotesData extends Parser{
     
     @Override
-    void convertToNum(){ //Converts the String data into floating point data
-    
-    }
+    void removeID() {} // No IDs to remove
     
     @Override
     void moveClass(){// Moves the classification value to the end of the list
         for(int i = 0; i < data.size(); i++){
-            double temp = data.get(i).get(0);
+            String temp = data.get(i).get(0);
             data.get(i).remove(0);
             data.get(i).add(temp);
         }
     }
     
     @Override
+    void handleMissingVal(){}// Does nothing because no missing data
+    
+    @Override
     String fileName(){ // Returns the data file name
-        return "/data/house-votes-84.data.txt";
+        return "house-votes-84.data.txt";
     }
 
     @Override
-    void removeID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    void discretize() {} //No need to data bin 
 }
