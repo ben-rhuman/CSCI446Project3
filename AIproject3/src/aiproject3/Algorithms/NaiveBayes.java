@@ -6,15 +6,12 @@
 package aiproject3.Algorithms;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
+
 
 /**
- * Naive Bayes Machine Learning Algorithm 
- * Group 8: Ben Rhuman, Isaac Sotelo,Danny Kumpf
- * 
+ * Naive Bayes Machine Learning Algorithm
+ * Group 8: Ben Rhuman, Isaac, Sotelo, Danny Kumpf
  *
  * This algorithm uses a training set to aquire prior probabilities used to
  * estimate the probability of a classification based on the testing set.
@@ -102,9 +99,9 @@ public class NaiveBayes implements ILearningAlgorithm {
 
             for (int j = 0; j < dataFragment.size(); j++) {
                 String key = dataFragment.get(j) + "," + classList.get(i);
-                if(priors.get(j).get(key) != null){
-                    prob *= (priors.get(j).get(key)/(double)numClass);
-                } else{
+                if (priors.get(j).get(key) != null) {
+                    prob *= (priors.get(j).get(key) / (double) numClass);
+                } else {
                     prob = 0; //This can be change to reflect a lack of knowledge in the training set
                 }
             }
