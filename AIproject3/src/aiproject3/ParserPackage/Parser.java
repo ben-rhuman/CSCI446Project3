@@ -32,18 +32,21 @@ public abstract class Parser {
 
     //Abstract methods
     abstract void removeID(); //Removes the IDs in the data sets that require it\
+
     abstract void handleMissingVal(); //Handles the missing value in the data sets
+
     abstract void moveClass(); //Moves the data's classification to the end of the array 
+
     abstract void discretize(); //Converts continous data into discrete data
+
     abstract String fileName(); //Returns the appropriate file name for the data set
-    
 
     //Concrete methods
     protected final void readInData() { // Reads in the data from the .txt files
         this.data = new ArrayList<ArrayList<String>>();
-        
+
         String filePath = new File("").getAbsolutePath() + "/src/aiproject3/ParserPackage/data/" + fileName(); //Creates the file path of the desired data set for windows
-        
+
         File file = new File(filePath);
 
         if (file.isFile()) {
@@ -82,15 +85,15 @@ public abstract class Parser {
             }
         }
     }
-    
-    protected void discretizeConcrete(){
+
+    protected void discretizeConcrete() {
         int bins = 10; //Somewhat arbitrary value that will require some tuning
         double binSize;
-        for (int j = 0; j < data.get(1).size() - 1 ; j++) {
-            
+        for (int j = 0; j < data.get(1).size() - 1; j++) {
+
             double low = Double.POSITIVE_INFINITY;
             double high = Double.NEGATIVE_INFINITY;
-            
+
             for (int i = 0; i < data.size(); i++) {
                 if (Double.parseDouble(data.get(i).get(j)) < low) {
                     low = Double.parseDouble(data.get(i).get(j));
@@ -99,17 +102,39 @@ public abstract class Parser {
                     high = Double.parseDouble(data.get(i).get(j));
                 }
             }
-            
-            binSize = (high - low)/bins;
-            
-            for(int i = 0; i < data.size(); i++){
-                for(int k = 1; k <= bins; k++){
-                    if(Double.parseDouble(data.get(i).get(j)) <= low+(binSize*k)){
+
+            binSize = (high - low) / bins;
+
+            for (int i = 0; i < data.size(); i++) {
+                for (int k = 1; k <= bins; k++) {
+                    if (Double.parseDouble(data.get(i).get(j)) <= low + (binSize * k)) {
                         data.get(i).set(j, Integer.toString(k));
                         break;
                     }
                 }
             }
+        }
+    }
+
+    public ArrayList<ArrayList<String>> split(boolean train) { //to test out algorithms 
+        ArrayList<ArrayList<String>> d1 = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> d2 = new ArrayList<ArrayList<String>>();
+        
+         for (int i = 0; i < data.size(); i++){
+             
+             if(i >= data.size()/10){
+                  d2.add(data.get(i));
+             }else{
+                 d1.add(data.get(i));
+                 
+             }
+         }
+         
+        
+        if (train) {
+            return d1;
+        } else {
+            return d2;
         }
     }
 
@@ -121,8 +146,8 @@ public abstract class Parser {
             System.out.println("");
         }
     }
-    
-    public ArrayList getData(){
+
+    public ArrayList getData() {
         return data;
     }
 }
