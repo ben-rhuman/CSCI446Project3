@@ -27,7 +27,7 @@ public abstract class Parser {
         handleMissingVal();
         moveClass();
         discretize();
-        printData();
+        //printData();
     }
 
     //Abstract methods
@@ -39,7 +39,7 @@ public abstract class Parser {
     
 
     //Concrete methods
-    protected void readInData() { // Reads in the data from the .txt files
+    protected final void readInData() { // Reads in the data from the .txt files
         this.data = new ArrayList<ArrayList<String>>();
         
         String filePath = new File("").getAbsolutePath() + "/src/aiproject3/ParserPackage/data/" + fileName(); //Creates the file path of the desired data set for windows
@@ -78,7 +78,6 @@ public abstract class Parser {
                         attribute = data.get(r.nextInt(data.size())).get(j); // select a random line in the data and select the desired attribute.
                     }
                     data.get(i).set(j, attribute);
-                    System.out.println("Replaced value: " + data.get(i).get(j));
                 }
             }
         }
