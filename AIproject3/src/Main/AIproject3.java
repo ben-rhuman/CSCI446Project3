@@ -1,11 +1,9 @@
 package Main;
 
-import Algorithms.NaiveBayes;
-import Algorithms.ILearningAlgorithm;
-import ParserPackage.GlassData;
-import ParserPackage.Parser;
+import Algorithms.*;
+import ParserPackage.*;
+import Testing.TestAlgorithm;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 /**
  *
