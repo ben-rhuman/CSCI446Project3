@@ -1,7 +1,7 @@
 /*
  * Group 8: Ben Rhuman, Isaac Sotelo,                                                                                                                                                       
  */
-package aiproject3.ParserPackage;
+package ParserPackage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,7 +45,7 @@ public abstract class Parser {
     protected final void readInData() { // Reads in the data from the .txt files
         this.data = new ArrayList<ArrayList<String>>();
 
-        String filePath = new File("").getAbsolutePath() + "/src/aiproject3/ParserPackage/data/" + fileName(); //Creates the file path of the desired data set for windows
+        String filePath = new File("").getAbsolutePath() + "/src/data/" + fileName(); //Creates the file path of the desired data set for windows
 
         File file = new File(filePath);
 

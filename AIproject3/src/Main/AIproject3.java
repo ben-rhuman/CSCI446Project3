@@ -1,8 +1,9 @@
-package aiproject3;
+package Main;
 
-import aiproject3.Algorithms.*;
-import aiproject3.ParserPackage.*;
-import aiproject3.Algorithms.*;
+import Algorithms.NaiveBayes;
+import Algorithms.ILearningAlgorithm;
+import ParserPackage.GlassData;
+import ParserPackage.Parser;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -36,20 +37,20 @@ public class AIproject3 {
         A.testAlgorithm(testData);
 
 
-//---------------- just for testing
-        ArrayList<String> s = new ArrayList<>(); //results
-           
-        KNearestNeighbor kn = new KNearestNeighbor();
-        
-        kn.trainAlgorithm(b.split(true)); //start training
-        s = kn.testAlgorithm(b.split(false)); //send the testing data
-       
-        for(int i = 0; i < s.size(); i++){
-            System.out.print(s.get(i) + ",");
-            if((i+1)%10 == 0){
-                System.out.println("");
-            }
-        }
-//-------------------
+////---------------- just for testing
+//        ArrayList<String> s = new ArrayList<>(); //results
+//           
+//        KNearestNeighbor kn = new KNearestNeighbor();
+//        
+//        kn.trainAlgorithm(b.split(true)); //start training
+//        s = kn.testAlgorithm(b.split(false)); //send the testing data
+//       
+//        for(int i = 0; i < s.size(); i++){
+//            System.out.print(s.get(i) + ",");
+//            if((i+1)%10 == 0){
+//                System.out.println("");
+//            }
+//        }
+////-------------------
     }
 }

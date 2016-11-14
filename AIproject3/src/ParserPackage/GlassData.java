@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aiproject3.ParserPackage;
+package ParserPackage;
 
 import java.util.ArrayList;
 
@@ -11,24 +11,31 @@ import java.util.ArrayList;
  *
  * @author k28h885
  */
-public class SoybeanData extends Parser {
+public class GlassData extends Parser {
 
     @Override
-    void removeID() {
-    } //Does nothing since no IDs to remove
+    void removeID() { // Removes the identification number from the data set
+        for (int i = 0; i < data.size(); i++) {
+            data.get(i).remove(0);
+        }
+
+    }
 
     @Override
-    void handleMissingVal(){}// Changes missing values to null
-    
+    void handleMissingVal() {
+    }// No missing data
+
     @Override
     void moveClass() {
     } // Classification value is already in the correct position
 
     @Override
-    void discretize() {} //No need to data bin
-    
+    void discretize() { //Using a data binning method to discretize data
+        super.discretizeConcrete();
+    }
+
     @Override
     String fileName() { // Returns the data file name
-        return "soybean-small.data.txt";
+        return "glass.data.txt";
     }
 }

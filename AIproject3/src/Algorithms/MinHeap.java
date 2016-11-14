@@ -1,6 +1,6 @@
-package aiproject3.Algorithms;
+package Algorithms;
 
-import aiproject3.Algorithms.Pair;
+import Algorithms.Pair;
 
 
 public class MinHeap {

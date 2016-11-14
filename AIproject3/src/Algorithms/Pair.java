@@ -1,4 +1,4 @@
-package aiproject3.Algorithms;
+package Algorithms;
 
 public class Pair {  //class used to hold the neighbor and its distance
 

@@ -1,4 +1,4 @@
-package aiproject3.Algorithms;
+package Algorithms;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class KNearestNeighbor {
         this.training = training;
         last = training.get(0).size() - 1;
         getClasses();               //get a list of the classes
-        
+
     }
 
     public ArrayList<String> testAlgorithm(ArrayList<ArrayList<String>> testList) {
@@ -32,9 +32,9 @@ public class KNearestNeighbor {
             heap = new MinHeap(training.size());
             c = findNeighborsDist(test.get(i));
             result.add(c);
-            
+
         }
-        
+
         return result;
     }
 
@@ -49,7 +49,7 @@ public class KNearestNeighbor {
                 String testVal = t.get(j);
                 String trainVal = training.get(i).get(j);
                 dist += valueDistanceMetric(j, testVal, trainVal); //find the distance of the attribute values
-                
+
             }
             //find distance of all neighbors put them in min heap
             Pair p = new Pair(i, dist);
@@ -123,7 +123,7 @@ public class KNearestNeighbor {
                     if (training.get(j).get(last).equals(classes.get(i))) { //if the class is equal to the class we are currently looking at
                         countTestC++;
                     }
-                } 
+                }
                 if (training.get(j).get(attribute).equals(trainValue)) { //if the trainValue occurred
                     countTrain++;
                     if (training.get(j).get(last).equals(classes.get(i))) { //if the class is equal to the class we are currently looking at
@@ -133,11 +133,11 @@ public class KNearestNeighbor {
             }
             //---------
             //make the calculation of the distance
-            if(countTest != 0){
+            if (countTest != 0) {
                 countTest = countTestC / countTest;
             }
-            if(countTrain != 0){
-            countTrain = countTrainC / countTrain;
+            if (countTrain != 0) {
+                countTrain = countTrainC / countTrain;
             }
             difference = countTest - countTrain;
             difference = Math.abs(difference);
@@ -158,5 +158,4 @@ public class KNearestNeighbor {
             }
         }
     }
-
 }
