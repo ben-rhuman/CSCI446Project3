@@ -18,6 +18,7 @@ package Testing;
 
 import ParserPackage.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class automates testing for the four different
@@ -30,20 +31,39 @@ import java.util.ArrayList;
  */
 public class TestAlgorithm {
     
+    int k = 10; //K-fold value
+    
     //3D arrayLists to hold the partitioned data sets
     private ArrayList<ArrayList<ArrayList<String>>> partitionData; 
 
     
     public TestAlgorithm(){
-        partitionData = partition(shuffle(new GlassData().getData()));
+        //partitionData = partition(shuffle(new GlassData().getData()));   //Example
     }
     
     private ArrayList partition(ArrayList<ArrayList<String>> data){ //Breaks the data into 10 partitions
-        
+        int partSize = data.size()/k; //Size of each partition
+        ArrayList<ArrayList<ArrayList<String>>> partData = new ArrayList<>();
+        for(int i = 0; i < k; i++){
+            
+        }
     }
     
     private ArrayList shuffle(ArrayList<ArrayList<String>> data){
+        Random r = new Random();
+        ArrayList temp;
+        int indexOne = 0;
+        int indexTwo = 0;
         
+        for(int i = 0; i < data.size(); i++){ //Shuffles it data.size() times
+            indexOne = r.nextInt(data.size());
+            indexTwo = r.nextInt(data.size());
+            temp = data.get(indexOne);
+            data.set(indexOne, data.get(indexTwo));
+            data.set(indexTwo, temp);
+        }
+        
+        return data;
     }
     
     private void train(){
