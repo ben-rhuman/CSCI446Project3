@@ -12,27 +12,31 @@ import java.util.ArrayList;
 public class AIproject3 {
 
     public static void main(String[] args) {
-        Parser g = new GlassData();   
+        
+        TestAlgorithm test = new TestAlgorithm();
+        
+        
+//        Parser g = new GlassData();   
 //        Parser g = new BreastCancerData();     
 //        Parser g = new HouseVotesData();      
 //        Parser g = new IrisData();
 //        Parser g = new SoybeanData();
 //        Parser g = new GlassData();   
 
-        ILearningAlgorithm A = new NaiveBayes();
-        A.trainAlgorithm(g.getData());
-        
-        
-        ArrayList<ArrayList<String>> data = g.getData();
-        ArrayList<ArrayList<String>> testData = new ArrayList<>();
-        for(int i = 0; i < data.size(); i++){    
-            testData.add(new ArrayList<>());
-            for(int j = 0; j < data.get(i).size() - 1; j++){
-                testData.get(i).add(data.get(i).get(j));
-            }
-        }
-        
-        A.testAlgorithm(testData);
+//        ILearningAlgorithm A = new NaiveBayes();
+//        A.trainAlgorithm(g.getData());
+//        
+//        
+//        ArrayList<ArrayList<String>> data = g.getData();
+//        ArrayList<ArrayList<String>> testData = new ArrayList<>();
+//        for(int i = 0; i < data.size(); i++){    
+//            testData.add(new ArrayList<>());
+//            for(int j = 0; j < data.get(i).size() - 1; j++){
+//                testData.get(i).add(data.get(i).get(j));
+//            }
+//        }
+//        
+//        A.testAlgorithm(testData);
 
 
 ////---------------- just for testing

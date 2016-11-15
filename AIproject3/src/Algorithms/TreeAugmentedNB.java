@@ -16,10 +16,22 @@
  */
 package Algorithms;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Ben
  */
-public class TreeAugmentedNB {
+public class TreeAugmentedNB implements ILearningAlgorithm{
+
+    @Override
+    public void trainAlgorithm(ArrayList<ArrayList<String>> data) {
+       
+    }
+
+    @Override
+    public ArrayList<String> testAlgorithm(ArrayList<ArrayList<String>> data) {
+        return new ArrayList<String>();
+    }
     
 }

@@ -91,7 +91,7 @@ public class NaiveBayes implements ILearningAlgorithm {
     //For testing
     private String NBclass(ArrayList<String> dataFragment) {  //dataFragment is one line of attributes in the data
         String classification = null; //The current most likely class
-        double highestProb = 0; // The probability of the most likely classification
+        double highestProb = -1; // The probability of the most likely classification
 
         for (int i = 0; i < classList.size(); i++) {
             int numClass = priors.get(priors.size() - 1).get(classList.get(i) + "," + classList.get(i));
@@ -102,7 +102,7 @@ public class NaiveBayes implements ILearningAlgorithm {
                 if (priors.get(j).get(key) != null) {
                     prob *= (priors.get(j).get(key) / (double) numClass);
                 } else {
-                    prob = 0; //This can be change to reflect a lack of knowledge in the training set
+                    prob = 0.0001; //This can be change to reflect a lack of knowledge in the training set
                 }
             }
             if (prob > highestProb) { //Replaces the classification with the new highest classification

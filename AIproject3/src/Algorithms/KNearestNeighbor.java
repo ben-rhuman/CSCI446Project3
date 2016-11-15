@@ -2,7 +2,7 @@ package Algorithms;
 
 import java.util.ArrayList;
 
-public class KNearestNeighbor {
+public class KNearestNeighbor implements ILearningAlgorithm{
 
     private ArrayList<ArrayList<String>> training = new ArrayList<ArrayList<String>>();// the training set
     private ArrayList<ArrayList<String>> test = new ArrayList<ArrayList<String>>(); // the testing set
