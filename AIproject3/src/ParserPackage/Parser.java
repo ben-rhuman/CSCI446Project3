@@ -39,8 +39,8 @@ public abstract class Parser {
 
     abstract void discretize(); //Converts continous data into discrete data
 
-    abstract String fileName(); //Returns the appropriate file name for the data set
-
+    public abstract String fileName(); //Returns the appropriate file name for the data set
+    
     //Concrete methods
     protected final void readInData() { // Reads in the data from the .txt files
         this.data = new ArrayList<ArrayList<String>>();

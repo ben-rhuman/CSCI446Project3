@@ -28,7 +28,7 @@ public class SoybeanData extends Parser {
     void discretize() {} //No need to data bin
     
     @Override
-    String fileName() { // Returns the data file name
+    public String fileName() { // Returns the data file name
         return "soybean-small.data.txt";
-    }
+    }   
 }
