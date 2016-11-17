@@ -36,10 +36,10 @@ public class NaiveBayes implements ILearningAlgorithm {
         trainingData = data;
         findPriors();
         findClasses();
-        System.out.println("Class List:");
-        classList.stream().forEach((classList1) -> {
-            System.out.println(classList1);
-        });
+//        System.out.println("Class List:");
+//        classList.stream().forEach((classList1) -> {
+//            System.out.println(classList1);
+//        });
     }
 
     @Override
@@ -50,10 +50,10 @@ public class NaiveBayes implements ILearningAlgorithm {
         for (ArrayList<String> testData1 : testData) {
             classResult.add(NBclass(testData1));
         }
-        System.out.println("Classification List: ");
-        for (String c : classResult) {
-            System.out.println(c);
-        }
+//        System.out.println("Classification List: ");
+//        for (String c : classResult) {
+//            System.out.println(c);
+//        }
         return classResult;
     }
 
