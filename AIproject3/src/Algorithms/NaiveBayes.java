@@ -106,4 +106,9 @@ public class NaiveBayes implements ILearningAlgorithm {
         }
         return classification;
     }
+
+    @Override
+    public void setAttRange(ArrayList<ArrayList<String>> aRng) {//Does nothing, for ID3
+        
+    }
 }

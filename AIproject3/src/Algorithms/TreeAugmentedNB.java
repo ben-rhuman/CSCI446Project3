@@ -254,4 +254,9 @@ public class TreeAugmentedNB implements ILearningAlgorithm {
         }
         return graph;
     }
+
+    @Override
+    public void setAttRange(ArrayList<ArrayList<String>> aRng) { //does nothing, for ID3
+        
+    }
 }

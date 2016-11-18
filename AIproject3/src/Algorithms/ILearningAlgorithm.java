@@ -15,4 +15,6 @@ public interface ILearningAlgorithm {
     public void trainAlgorithm(ArrayList<ArrayList<String>> data); //Trains the algorithm with the provided data partition
     
     public ArrayList<String> testAlgorithm(ArrayList<ArrayList<String>> data); //Returns a list of classifications of the testing set
+   
+    public void setAttRange(ArrayList<ArrayList<String>> aRng);
 }

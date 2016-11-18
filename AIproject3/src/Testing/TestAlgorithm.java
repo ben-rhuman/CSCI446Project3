@@ -43,7 +43,7 @@ public class TestAlgorithm {
     }
 
     private void runValidation() {
-        //partitionData = partition(shuffle(new GlassData().getData()));
+        
         List<Parser> dataSet = new ArrayList<>();
         dataSet.add(new BreastCancerData());
         dataSet.add(new GlassData());
@@ -70,8 +70,9 @@ public class TestAlgorithm {
                 algorithm.add(new KNearestNeighbor());
                 algorithm.add(new NaiveBayes());
                 algorithm.add(new TreeAugmentedNB());
-                //algorithm.add(new ID3());
-                //Insert the data set range thing here
+                algorithm.add(new DecisionTree());
+                algorithm.get(3).setAttRange(dataSet.get(set).getAttRange());
+
                 
                 
                 for (int j = 0; j < k; j++) {
@@ -86,6 +87,7 @@ public class TestAlgorithm {
 
                 for (int j = 0; j < algorithm.size(); j++) {
                     train(algorithm.get(j), trainingData);
+                    System.out.println("Algorithm: " + j);
                     loss.set(j, calcLoss(test(algorithm.get(j), testData), testData) + loss.get(j));
                 }
             }
@@ -100,9 +102,9 @@ public class TestAlgorithm {
 
     private Integer calcLoss(ArrayList<String> result, ArrayList<ArrayList<String>> testData) {
         int loss = 0;
-        //System.out.println(result.size());
+        System.out.println("New Fold");
         for (int i = 0; i < result.size(); i++) {
-            //System.out.println("Result: " + result.get(i) + " Actual: " + testData.get(i).get(testData.get(i).size() - 1));
+            System.out.println("Result: " + result.get(i) + " Actual: " + testData.get(i).get(testData.get(i).size() - 1));
             if (result.get(i).equals(testData.get(i).get(testData.get(i).size() - 1))) {
                 //it was a hit, do nothing
             } else {

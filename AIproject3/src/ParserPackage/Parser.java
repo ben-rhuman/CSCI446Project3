@@ -22,7 +22,7 @@ public abstract class Parser {
     //Variables
     protected ArrayList<ArrayList<String>> data;   //the instances of our data
     protected ArrayList<ArrayList<String>> attRange; //the range of values for each attribute, for ID3
-    private int BINS = 10;
+    private int BINS = 6; //Tuned to 6 bins
     
     //Parser constructor
     public Parser() {

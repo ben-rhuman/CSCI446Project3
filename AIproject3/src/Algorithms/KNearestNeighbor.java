@@ -2,7 +2,7 @@ package Algorithms;
 
 import java.util.ArrayList;
 
-public class KNearestNeighbor implements ILearningAlgorithm {
+public class KNearestNeighbor implements ILearningAlgorithm{
 
     private ArrayList<ArrayList<String>> training = new ArrayList<ArrayList<String>>();// the training set
     private ArrayList<ArrayList<String>> test = new ArrayList<ArrayList<String>>(); // the testing set
@@ -69,12 +69,11 @@ public class KNearestNeighbor implements ILearningAlgorithm {
         ArrayList<Integer> classCount = new ArrayList(classes.size());  //a list to hold the count of each instance of the neighbor
         String classification = null;
 
-        //add the minimal distance neighbors to a list
-        for (int i = 0; i < k; i++) {
+        for (int i = 0; i < k; i++) {   //add the minimal distance neighbors to a list
             kNeighbors.add(heap.remove());
         }
-        //for each of the classes count up how many of the neighbors contain each class
-        for (int i = 0; i < classes.size(); i++) {
+
+        for (int i = 0; i < classes.size(); i++) {  //for each of the classes count up how many of the neighbors contain each class
             int count = 0; //reset our counting
             for (int j = 0; j < kNeighbors.size(); j++) {
                 int index = kNeighbors.get(j).index;
@@ -87,17 +86,14 @@ public class KNearestNeighbor implements ILearningAlgorithm {
             classCount.add(i, count);
         }
 
-        //find the majority class based off our count list
         int majorityIndex = 0;
-        int maxCount = 0;
-        for (int i = 0; i < classCount.size(); i++) {
-            if (classCount.get(i) > maxCount) {
+
+        for (int i = 0; i < classCount.size(); i++) { //find the majority class based off our count list
+            if (classCount.get(i) > majorityIndex) {
                 majorityIndex = i;
-                maxCount = classCount.get(i);
-            } else if (classCount.get(i) == maxCount) { //choose randomly if they are the same
+            } else if (classCount.get(i) == majorityIndex) { //choose randomly if they are the same
                 if (Math.random() < .5) {
                     majorityIndex = i;
-                    
                 }
             }
         }
@@ -169,8 +165,13 @@ public class KNearestNeighbor implements ILearningAlgorithm {
     public void setK(int n){
         this.k = n;
     }
-}
 
+    @Override
+    public void setAttRange(ArrayList<ArrayList<String>> aRng) {
+       
+    }
+            
+}
     
             
 

@@ -3,9 +3,9 @@ package Algorithms;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class DecisionTree {
+public class DecisionTree implements ILearningAlgorithm {
 
-    ArrayList<ArrayList<String>> subTraining;
+  ArrayList<ArrayList<String>> subTraining;
     private ArrayList<ArrayList<String>> test;  // the testing set
     private ArrayList<ArrayList<String>> prune;  // the pruning set
     private ArrayList<ArrayList<String>> attRange; //list of possible values for each attribute
@@ -153,11 +153,15 @@ public class DecisionTree {
                 if (current.getIsAttribute()) { //check if the node was marked as an attribute node
                     int index = Integer.parseInt(current.getData()); //get the attribute number
                     String value = prune.get(i).get(index); //get the value from the test list
-
+                    int set = 0;
                     for (int j = 0; j < current.getChildren().size(); j++) {
                         if (current.getChild(j).getData().equals(value)) { //find the child that contains that value
                             current = current.getChild(j);//move to that node
+                            set++;
                             break;
+                        }
+                        if(set == 0){
+                            current = current.getChild(0);
                         }
                     }
                 } else { //if the node is a value node there will only be one child node
@@ -170,7 +174,7 @@ public class DecisionTree {
             }
         }
         double accuracy = correct / ((double) prune.size());
-        System.out.println("accuracy " + accuracy);
+        //System.out.println("accuracy " + accuracy);
         return accuracy;
     }
 
@@ -201,13 +205,18 @@ public class DecisionTree {
             do { //continue until leaf node
                 if (current.getIsAttribute()) { //check if the node was marked as an attribute node
                     int index = Integer.parseInt(current.getData()); //get the attribute number
+                    
                     String value = testList.get(i).get(index); //get the value from the test list
-
+                    int set = 0;
                     for (int j = 0; j < current.getChildren().size(); j++) {
                         if (current.getChild(j).getData().equals(value)) { //find the child that contains that value
                             current = current.getChild(j);//move to that node
+                            set++;
                             break;
                         }
+                    }
+                    if(set == 0){
+                        current = current.getChild(0);
                     }
                 } else { //if the node is a value node there will only be one child node
                     current = current.getChild(0);
@@ -251,8 +260,9 @@ public class DecisionTree {
         newTree.setIsAttribute(true);
 
         //get index of attribute with that tag
-        int tagLocation = attributes.get(0).size() - 1;
+        
         for (int i = 0; i < attributes.size(); i++) {
+            int tagLocation = attributes.get(i).size() - 1;
             if (attributes.get(i).get(tagLocation).equals(s)) {
                 aIndex = i;
                 break;
@@ -384,11 +394,11 @@ public class DecisionTree {
             } else if (gainRatios.get(i) == maxGainR) { //choose randomly if they are the same
                 if (Math.random() < .5) {
                     chosenIndex = i;
-                    maxGainR = gainRatios.get(i);
+                    
                 }
             }
         }
-        int tagLocation = attributes.get(0).size() - 1;
+        int tagLocation = attributes.get(chosenIndex).size() - 1;
         String s = attributes.get(chosenIndex).get(tagLocation);
         int attributeTag = Integer.parseInt(s);
 
