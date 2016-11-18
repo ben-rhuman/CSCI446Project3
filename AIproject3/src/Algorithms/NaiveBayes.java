@@ -36,10 +36,6 @@ public class NaiveBayes implements ILearningAlgorithm {
         trainingData = data;
         findPriors();
         findClasses();
-//        System.out.println("Class List:");
-//        classList.stream().forEach((classList1) -> {
-//            System.out.println(classList1);
-//        });
     }
 
     @Override
@@ -69,8 +65,6 @@ public class NaiveBayes implements ILearningAlgorithm {
                 } else {
                     priors.get(j).put(key, 1); //Takes care of the case when there is a null value at the specified place in the hashtable
                 }
-                //System.out.println("Key: " + key);
-                //System.out.println(priors.get(j).get(key));
             }
         }
     }
@@ -97,12 +91,12 @@ public class NaiveBayes implements ILearningAlgorithm {
             int numClass = priors.get(priors.size() - 1).get(classList.get(i) + "," + classList.get(i));
             double prob = (double) numClass / trainingData.size();
 
-            for (int j = 0; j < dataFragment.size(); j++) {
+            for (int j = 0; j < dataFragment.size()-1; j++) {
                 String key = dataFragment.get(j) + "," + classList.get(i);
                 if (priors.get(j).get(key) != null) {
                     prob *= (priors.get(j).get(key) / (double) numClass);
                 } else {
-                    prob = 0.0001; //This can be change to reflect a lack of knowledge in the training set
+                    prob = 0.00001; //Tuned 
                 }
             }
             if (prob > highestProb) { //Replaces the classification with the new highest classification
