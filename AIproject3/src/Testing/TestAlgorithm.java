@@ -54,6 +54,7 @@ public class TestAlgorithm {
         ArrayList<ArrayList<String>> trainingData;
         ArrayList<ArrayList<String>> testData;
         
+        System.out.println("10-Fold Cross-Validation\n-----------------------------------------------");
         for (int set = 0; set < dataSet.size(); set++) {
             partitionData = partition(shuffle(dataSet.get(set).getData()));
 
@@ -66,7 +67,7 @@ public class TestAlgorithm {
                 trainingData = new ArrayList<>();
                 testData = new ArrayList<>();
                 List<ILearningAlgorithm> algorithm = new ArrayList<>(4);
-                //algorithm.add(new KNearestNeighbor());
+                algorithm.add(new KNearestNeighbor());
                 algorithm.add(new NaiveBayes());
                 algorithm.add(new TreeAugmentedNB());
                 //algorithm.add(new ID3());
