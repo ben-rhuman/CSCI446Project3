@@ -35,7 +35,7 @@ public class BreastCancerData extends Parser {
     }// No need to data bin
 
     @Override
-    String fileName() { // Returns the data file name
+    public String fileName() { // Returns the data file name
         return "breast-cancer-wisconsin.data.txt";
     }
 

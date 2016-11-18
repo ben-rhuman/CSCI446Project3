@@ -43,49 +43,73 @@ public class TestAlgorithm {
     }
 
     private void runValidation() {
-        partitionData = partition(shuffle(new GlassData().getData()));
-        
-        List<Integer> loss = new ArrayList<>();
-        for(int i = 0; i < 4; i++){
-            loss.add(0);
-        }
-       
-        /*
-        *algorithm.add(new ID3());
-        *Is where the last algorithm goes.
-        * 
-        */
+        //partitionData = partition(shuffle(new GlassData().getData()));
+        List<Parser> dataSet = new ArrayList<>();
+        dataSet.add(new BreastCancerData());
+        dataSet.add(new GlassData());
+        dataSet.add(new HouseVotesData());
+        dataSet.add(new IrisData());
+        dataSet.add(new SoybeanData());
+
         ArrayList<ArrayList<String>> trainingData;
         ArrayList<ArrayList<String>> testData;
+        
+        System.out.println("10-Fold Cross-Validation\n-----------------------------------------------");
+        for (int set = 0; set < dataSet.size(); set++) {
+            partitionData = partition(shuffle(dataSet.get(set).getData()));
 
-        for (int i = 0; i < k; i++) { //Current partition for testing
-            trainingData = new ArrayList<>();
-            testData = new ArrayList<>();
-            List<ILearningAlgorithm> algorithm = new ArrayList<>(4);
-            algorithm.add(new KNearestNeighbor());
-            algorithm.add(new NaiveBayes());
-            algorithm.add(new TreeAugmentedNB());
-            
-            for (int j = 0; j < k; j++) {
-                for (int k = 0; k < partitionData.get(j).size(); k++) {
-                    if (i == j) { //If j is the current testing partition
-                        testData.add(partitionData.get(j).get(k));
-                    } else{
-                        trainingData.add(partitionData.get(j).get(k));
+            List<Integer> loss = new ArrayList<>(); //Initializes Loss list to keep track of failed classifications
+            for (int i = 0; i < 4; i++) {
+                loss.add(0);
+            }
+
+            for (int i = 0; i < k; i++) { //Current partition for testing
+                trainingData = new ArrayList<>();
+                testData = new ArrayList<>();
+                List<ILearningAlgorithm> algorithm = new ArrayList<>(4);
+                algorithm.add(new KNearestNeighbor());
+                algorithm.add(new NaiveBayes());
+                algorithm.add(new TreeAugmentedNB());
+                //algorithm.add(new ID3());
+                //Insert the data set range thing here
+                
+                
+                for (int j = 0; j < k; j++) {
+                    for (int k = 0; k < partitionData.get(j).size(); k++) {
+                        if (i == j) { //If j is the current testing partition
+                            testData.add(partitionData.get(j).get(k));
+                        } else {
+                            trainingData.add(partitionData.get(j).get(k));
+                        }
                     }
                 }
+
+                for (int j = 0; j < algorithm.size(); j++) {
+                    train(algorithm.get(j), trainingData);
+                    loss.set(j, calcLoss(test(algorithm.get(j), testData), testData) + loss.get(j));
+                }
             }
-            
-            for(int j = 0; j < algorithm.size(); j++){
-                train(algorithm.get(j), trainingData);
-                loss.set(j, calcLoss(test(algorithm.get(j), testData), testData) + loss.get(j));
-            }          
+            System.out.println("0/1 loss data for: " + dataSet.get(set).fileName());
+            System.out.println("K-Nearest Neighbors: " + (double)loss.get(0) / dataSet.get(set).getData().size());
+            System.out.println("Naive Bayes: " + (double)loss.get(1) / dataSet.get(set).getData().size());
+            System.out.println("Tree Augmented Naive Bayes: " + (double)loss.get(2) / dataSet.get(set).getData().size());
+            System.out.println("Iterative Dichotomizer 3: " + (double)loss.get(3) / dataSet.get(set).getData().size());
+            System.out.println();
         }
-        System.out.println("KNN Loss: " + loss.get(1));
     }
-    
-    private Integer calcLoss(ArrayList<String> classes, ArrayList<ArrayList<String>> testData){
-        return 1;
+
+    private Integer calcLoss(ArrayList<String> result, ArrayList<ArrayList<String>> testData) {
+        int loss = 0;
+        //System.out.println(result.size());
+        for (int i = 0; i < result.size(); i++) {
+            //System.out.println("Result: " + result.get(i) + " Actual: " + testData.get(i).get(testData.get(i).size() - 1));
+            if (result.get(i).equals(testData.get(i).get(testData.get(i).size() - 1))) {
+                //it was a hit, do nothing
+            } else {
+                loss++;
+            }
+        }
+        return loss;
     }
 
     private ArrayList partition(ArrayList<ArrayList<String>> data) { //Breaks the data into 10 partitions
@@ -100,7 +124,7 @@ public class TestAlgorithm {
             low += partSize;
         }
         partData.add(new ArrayList());
-        System.out.println(partData.size());
+        //System.out.println(partData.size());
         for (int j = low; j < data.size() - 1; j++) {
             partData.get(k - 1).add(data.get(j)); //Puts the remaining data in the last partition if the data is not evenly dividable
         }

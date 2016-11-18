@@ -35,7 +35,7 @@ public class GlassData extends Parser {
     }
 
     @Override
-    String fileName() { // Returns the data file name
+    public String fileName() { // Returns the data file name
         return "glass.data.txt";
     }
 

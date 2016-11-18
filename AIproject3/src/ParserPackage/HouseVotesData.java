@@ -29,7 +29,7 @@ public class HouseVotesData extends Parser{
     void handleMissingVal(){}// Does nothing because no missing data
     
     @Override
-    String fileName(){ // Returns the data file name
+    public String fileName(){ // Returns the data file name
         return "house-votes-84.data.txt";
     }
 

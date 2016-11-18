@@ -9,7 +9,7 @@ public class KNearestNeighbor implements ILearningAlgorithm {
     private ArrayList<String> result = new ArrayList<>();                     // the final categorizations
     private ArrayList<String> classes = new ArrayList<>();
     private int last = 0; //get the index of the class, the last value
-    private int k = 5;                         //number of k neighbors
+    private int k = 3; //number of k neighbors - tuned to 3, based on resulting loss factors
 
     MinHeap heap;
 
@@ -162,4 +162,16 @@ public class KNearestNeighbor implements ILearningAlgorithm {
             }
         }
     }
+    public int getK(){
+        return k;
+    }
+    
+    public void setK(int n){
+        this.k = n;
+    }
 }
+
+    
+            
+
+

@@ -46,9 +46,14 @@ public abstract class Parser {
 
     abstract void discretize(); //Converts continous data into discrete data
 
+
     abstract void attributeRange(); //obtain the range of what each attribute can be, for ID3
     
-    abstract String fileName(); //Returns the appropriate file name for the data set
+    public abstract String fileName(); //Returns the appropriate file name for the data set
+
+
+    
+    
 
     //Concrete methods
     

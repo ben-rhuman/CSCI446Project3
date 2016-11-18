@@ -30,8 +30,9 @@ public class IrisData extends Parser {
     }    
     
     @Override
-    String fileName() { // Returns the data file name
+    public String fileName() { // Returns the data file name
         return "iris.data.txt";
+
     }
 
     @Override
@@ -47,4 +48,7 @@ public class IrisData extends Parser {
             attRange.add(values);
         }
     }
-}
+
+    } 
+
+
