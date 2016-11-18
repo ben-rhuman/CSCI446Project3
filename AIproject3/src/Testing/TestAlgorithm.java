@@ -66,9 +66,9 @@ public class TestAlgorithm {
                 trainingData = new ArrayList<>();
                 testData = new ArrayList<>();
                 List<ILearningAlgorithm> algorithm = new ArrayList<>(4);
-                algorithm.add(new KNearestNeighbor());
+                //algorithm.add(new KNearestNeighbor());
                 algorithm.add(new NaiveBayes());
-                //algorithm.add(new TreeAugmentedNB());
+                algorithm.add(new TreeAugmentedNB());
                 //algorithm.add(new ID3());
                 //Insert the data set range thing here
                 
@@ -99,6 +99,7 @@ public class TestAlgorithm {
 
     private Integer calcLoss(ArrayList<String> result, ArrayList<ArrayList<String>> testData) {
         int loss = 0;
+        //System.out.println(result.size());
         for (int i = 0; i < result.size(); i++) {
             //System.out.println("Result: " + result.get(i) + " Actual: " + testData.get(i).get(testData.get(i).size() - 1));
             if (result.get(i).equals(testData.get(i).get(testData.get(i).size() - 1))) {
