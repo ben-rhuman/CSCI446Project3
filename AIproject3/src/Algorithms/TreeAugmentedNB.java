@@ -75,8 +75,7 @@ public class TreeAugmentedNB implements ILearningAlgorithm {
                     } else {
                         jointCondi.put(key, 1); //Takes care of the case when there is a null value at the specified place in the hashtable
                     }
-//                    System.out.println("Key: " + key);
-//                    System.out.println(jointCondi.get(key));
+
                     key = k + "," + trainingData1.get(k) + "," + j + "," + trainingData1.get(j) + "," + trainingData1.get(trainingData1.size() - 1);
                     if (jointCondi.get(key) != null) { //Increments the number of times this attribute and class have occured together.
                         jointCondi.put(key, jointCondi.get(key) + 1);
@@ -117,9 +116,7 @@ public class TreeAugmentedNB implements ILearningAlgorithm {
             for (int row = 0; row < graph.length; row++) {
                 double x;
                 if (jointCondi.get(row + "," + dataFragment.get(row) + "," + (dataFragment.size() - 1) + "," + classList.get(i) + "," + classList.get(i)) == null) {
-                    x = 0.0001;
-                    //System.out.println(row + "," + dataFragment.get(row) + "," + (dataFragment.size()-1) + "," + classList.get(i)+ "," + classList.get(i));
-                    //System.out.println("Null (2)");
+                    x = 0.0001; //Tuned 
                 } else {
                     x = jointCondi.get(row + "," + dataFragment.get(row) + "," + (dataFragment.size() - 1) + "," + classList.get(i) + "," + classList.get(i)); //P(x|c)
                 }
@@ -128,41 +125,25 @@ public class TreeAugmentedNB implements ILearningAlgorithm {
                 for (int col = 0; col < graph.length; col++) {
                     if (row == col) {
                         graph[row][col] = 0; // Of there is no edge
-                        //graph[row][col][1] = 1; //Flags it as marked
                     } else {
-                        //System.out.println(trainingData.size());
                         double classProb = (double) (numClass.get(classList.get(i))) / (trainingData.size()); //P(c)
                         double jointCond;
                         double y;
 
                         if (jointCondi.get(row + "," + dataFragment.get(row) + "," + col + "," + dataFragment.get(col) + "," + classList.get(i)) == null) {
-                            jointCond = 0.0001;
-                            //System.out.println(row + "," + dataFragment.get(row) + "," + col + "," + dataFragment.get(col) + "," + classList.get(i));
-                            //System.out.println("Null (1)");
+                            jointCond = 0.0001; //Tuned 
                         } else {
                             jointCond = jointCondi.get(row + "," + dataFragment.get(row) + "," + col + "," + dataFragment.get(col) + "," + classList.get(i)); //P(x,y|c)
                         }
 
                         if (jointCondi.get(col + "," + dataFragment.get(col) + "," + (dataFragment.size() - 1) + "," + classList.get(i) + "," + classList.get(i)) == null) {
-                            y = 0.0001;
-                            //System.out.println(col + "," + dataFragment.get(col) + "," + (dataFragment.size()-1) + "," + classList.get(i)+ "," + classList.get(i));
-                            //System.out.println("Null (3)");
+                            y = 0.0001; //Tuned 
                         } else {
                             y = jointCondi.get(col + "," + dataFragment.get(col) + "," + (dataFragment.size() - 1) + "," + classList.get(i) + "," + classList.get(i)); //P(y|c)
                         }
-                        //System.out.println("ClassP: " + classProb);
-                        //System.out.println("jointCond: " + jointCond);
-                        //System.out.println("X: " + (x / numClass.get(classList.get(i))));
-                        //System.out.println("Y: " + y);
-
                         graph[row][col] = classProb * jointCond * (jointCond / (x * y)); //Weights the edge based on the conditional mutual information equation
-                        //graph[row][col][1] = 0; //Flags it as unmarked
                     }
-                    //System.out.print(graph[row][col][0] + ", ");
-                }
-                //graph[row][graph.length][0] = x; //Holds onto the P(Attribute|Class)
-                //graph[row][graph.length][1] = 1;
-                //System.out.println();   
+                } 
             }
             double classificationVal = calcProbability(maxDirectedSpan(graph), prob);
             if(classificationVal > highestProb){
@@ -242,12 +223,8 @@ public class TreeAugmentedNB implements ILearningAlgorithm {
             maxcost = maxcost + dist[i];
         }
 
-//        System.out.print("\n Maximum cost = " + maxcost);
-//        System.out.print("\n Maximum Spanning tree is ");
-
         double[][] maxSpan = new double[graph.length][graph.length];
         for (int i = 0; i < verticeCount; i++) {
-//            System.out.print("\n vertex " + i + " is connected to " + path[i] + " by distance: " + dist[i]);
             maxSpan[i][path[i]] = dist[i];
             maxSpan[path[i]][i] = dist[i];
         }
@@ -278,63 +255,3 @@ public class TreeAugmentedNB implements ILearningAlgorithm {
         return graph;
     }
 }
-
-//    private void primAlgorithm(double[][] graph) {
-//        double weightArray[][] = graph;
-//        int visited[] = new int[graph.length];
-//        double d[] = new double[graph.length];
-//        int p[] = new int[graph.length];
-//        int verticeCount = graph.length;
-//        int current, total;
-//        double mincost;
-//
-//        for (int i = 0; i < verticeCount; i++) {
-//            p[i] = visited[i] = 0;
-//            d[i] = 32767;
-//        }
-//
-//        current = 1;
-//        d[current] = 0;
-//        total = 1;
-//        visited[current] = 1;
-//        while (total != verticeCount) {
-//            for (int i = 0; i < verticeCount; i++) {
-//                if (weightArray[current][i] != 0) {
-//                    if (visited[i] == 0) {
-//                        if (d[i] > weightArray[current][i]) {
-//                            d[i] = weightArray[current][i];
-//                            p[i] = current;
-//                        }
-//                    }
-//                }
-//            }
-//            mincost = 32767;
-//            for (int i = 0; i < verticeCount; i++) {
-//                if (visited[i] == 0) {
-//                    if (d[i] < mincost) {
-//                        mincost = d[i];
-//                        current = i;
-//                    }
-//                }
-//            }
-//            visited[current] = 1;
-//            total++;
-//        }
-//
-//        mincost = 0;
-//        for (int i = 0; i < verticeCount; i++) {
-//            mincost = mincost + d[i];
-//        }
-//
-//        System.out.print("\n Minimum cost=" + mincost);
-//        System.out.print("\n Minimum Spanning tree is");
-//
-//        for (int i = 0; i < verticeCount; i++) {
-//            System.out.print("\n vertex " + i + " is connected to " + p[i]);
-//        }
-//    }
-
-
-
-
-// P(x,y|c) = joint (x,y,c)/#of c
