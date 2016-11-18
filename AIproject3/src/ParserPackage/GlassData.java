@@ -38,4 +38,18 @@ public class GlassData extends Parser {
     String fileName() { // Returns the data file name
         return "glass.data.txt";
     }
+
+    @Override
+    void attributeRange() {
+       for (int i = 0; i < data.get(1).size() - 1; i++) { //iterate through all of the attributes
+
+            ArrayList<String> values = new ArrayList<>();
+
+            for (int j = 1; j <= this.getBins(); j++) { //this data's range depends on the number of bins
+                String s = Integer.toString(j);
+                values.add(s);
+            }
+            attRange.add(values);
+        }
+    }
 }

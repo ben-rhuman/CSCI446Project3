@@ -5,6 +5,8 @@
  */
 package ParserPackage;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author k28h885
@@ -33,4 +35,19 @@ public class HouseVotesData extends Parser{
 
     @Override
     void discretize() {} //No need to data bin 
+
+    @Override
+    void attributeRange() {
+     for (int i = 0; i < data.get(1).size() - 1; i++) { //iterate through all of the attributes
+
+            ArrayList<String> values = new ArrayList<>();
+
+                String s1 = "y";
+                String s2 = "n";
+                values.add(s1);
+                values.add(s2);
+            
+            attRange.add(values);
+        }
+    }
 }

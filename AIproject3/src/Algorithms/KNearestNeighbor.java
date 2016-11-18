@@ -2,7 +2,7 @@ package Algorithms;
 
 import java.util.ArrayList;
 
-public class KNearestNeighbor implements ILearningAlgorithm{
+public class KNearestNeighbor implements ILearningAlgorithm {
 
     private ArrayList<ArrayList<String>> training = new ArrayList<ArrayList<String>>();// the training set
     private ArrayList<ArrayList<String>> test = new ArrayList<ArrayList<String>>(); // the testing set
@@ -69,11 +69,12 @@ public class KNearestNeighbor implements ILearningAlgorithm{
         ArrayList<Integer> classCount = new ArrayList(classes.size());  //a list to hold the count of each instance of the neighbor
         String classification = null;
 
-        for (int i = 0; i < k; i++) {   //add the minimal distance neighbors to a list
+        //add the minimal distance neighbors to a list
+        for (int i = 0; i < k; i++) {
             kNeighbors.add(heap.remove());
         }
-
-        for (int i = 0; i < classes.size(); i++) {  //for each of the classes count up how many of the neighbors contain each class
+        //for each of the classes count up how many of the neighbors contain each class
+        for (int i = 0; i < classes.size(); i++) {
             int count = 0; //reset our counting
             for (int j = 0; j < kNeighbors.size(); j++) {
                 int index = kNeighbors.get(j).index;
@@ -86,14 +87,17 @@ public class KNearestNeighbor implements ILearningAlgorithm{
             classCount.add(i, count);
         }
 
+        //find the majority class based off our count list
         int majorityIndex = 0;
-
-        for (int i = 0; i < classCount.size(); i++) { //find the majority class based off our count list
-            if (classCount.get(i) > majorityIndex) {
+        int maxCount = 0;
+        for (int i = 0; i < classCount.size(); i++) {
+            if (classCount.get(i) > maxCount) {
                 majorityIndex = i;
-            } else if (classCount.get(i) == majorityIndex) { //choose randomly if they are the same
+                maxCount = classCount.get(i);
+            } else if (classCount.get(i) == maxCount) { //choose randomly if they are the same
                 if (Math.random() < .5) {
                     majorityIndex = i;
+                    
                 }
             }
         }

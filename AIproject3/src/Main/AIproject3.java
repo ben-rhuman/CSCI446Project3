@@ -13,15 +13,18 @@ public class AIproject3 {
 
     public static void main(String[] args) {
         
-        TestAlgorithm test = new TestAlgorithm();
+        //fix iris data or something that was wrong and they noted it
+        //stratified
         
         
-//        Parser g = new GlassData();   
-//        Parser g = new BreastCancerData();     
-//        Parser g = new HouseVotesData();      
-//        Parser g = new IrisData();
-//        Parser g = new SoybeanData();
-//        Parser g = new GlassData();   
+        //TestAlgorithm test = new TestAlgorithm();
+        
+        
+//        Parser b = new GlassData();   
+//        Parser b = new BreastCancerData();     
+//        Parser b = new HouseVotesData();      
+//        Parser b = new IrisData();
+//        Parser b = new SoybeanData();  
 
 //        ILearningAlgorithm A = new NaiveBayes();
 //        A.trainAlgorithm(g.getData());
@@ -40,19 +43,20 @@ public class AIproject3 {
 
 
 ////---------------- just for testing
-//        ArrayList<String> s = new ArrayList<>(); //results
-//           
-//        KNearestNeighbor kn = new KNearestNeighbor();
-//        
-//        kn.trainAlgorithm(b.split(true)); //start training
-//        s = kn.testAlgorithm(b.split(false)); //send the testing data
-//       
-//        for(int i = 0; i < s.size(); i++){
-//            System.out.print(s.get(i) + ",");
-//            if((i+1)%10 == 0){
-//                System.out.println("");
-//            }
-//        }
-////-------------------
+////    Parser b = new IrisData();
+////        ArrayList<String> s = new ArrayList<>(); //results
+////           
+////        DecisionTree dt = new DecisionTree();
+////        dt.setAttRange(b.getAttRange());
+////        dt.trainAlgorithm(b.split(true)); //start training
+////        s = dt.testAlgorithm(b.split(false)); //send the testing data
+////       
+////        for(int i = 0; i < s.size(); i++){
+////            System.out.print(s.get(i) + ",");
+////            if((i+1)%10 == 0){
+////                System.out.println("");
+////            }
+////        }
+//-------------------
     }
 }

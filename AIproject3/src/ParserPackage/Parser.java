@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Random;
 
 /**
@@ -18,16 +20,21 @@ import java.util.Random;
 public abstract class Parser {
 
     //Variables
-    protected ArrayList<ArrayList<String>> data;
-
+    protected ArrayList<ArrayList<String>> data;   //the instances of our data
+    protected ArrayList<ArrayList<String>> attRange; //the range of values for each attribute, for ID3
+    private int BINS = 10;
+    
     //Parser constructor
     public Parser() {
+        
         readInData();
         removeID();
         handleMissingVal();
         moveClass();
         discretize();
+        attributeRange();
         //printData();
+        
     }
 
     //Abstract methods
@@ -39,12 +46,16 @@ public abstract class Parser {
 
     abstract void discretize(); //Converts continous data into discrete data
 
+    abstract void attributeRange(); //obtain the range of what each attribute can be, for ID3
+    
     abstract String fileName(); //Returns the appropriate file name for the data set
 
     //Concrete methods
+    
     protected final void readInData() { // Reads in the data from the .txt files
         this.data = new ArrayList<ArrayList<String>>();
-
+        this.attRange = new ArrayList<ArrayList<String>>();
+        
         String filePath = new File("").getAbsolutePath() + "/src/data/" + fileName(); //Creates the file path of the desired data set for windows
 
         File file = new File(filePath);
@@ -87,7 +98,7 @@ public abstract class Parser {
     }
 
     protected void discretizeConcrete() {
-        int bins = 10; //Somewhat arbitrary value that will require some tuning
+        int bins = BINS; //Somewhat arbitrary value that will require some tuning
         double binSize;
         for (int j = 0; j < data.get(1).size() - 1; j++) {
 
@@ -115,28 +126,29 @@ public abstract class Parser {
             }
         }
     }
-
-    public ArrayList<ArrayList<String>> split(boolean train) { //to test out algorithms 
-        ArrayList<ArrayList<String>> d1 = new ArrayList<ArrayList<String>>();
-        ArrayList<ArrayList<String>> d2 = new ArrayList<ArrayList<String>>();
-        
-         for (int i = 0; i < data.size(); i++){
-             
-             if(i >= data.size()/10){
-                  d2.add(data.get(i));
-             }else{
-                 d1.add(data.get(i));
-                 
-             }
-         }
-         
-        
-        if (train) {
-            return d1;
-        } else {
-            return d2;
-        }
-    }
+    
+////ArrayList<ArrayList<String>> d2 = new ArrayList<ArrayList<String>>();
+////    public ArrayList<ArrayList<String>> split(boolean train) { //to test out algorithms 
+////        ArrayList<ArrayList<String>> d1 = new ArrayList<ArrayList<String>>();
+////        
+////        
+////        
+////         for (int i = 0; i < data.size(); i++){
+////             if(Math.random()<.10){
+////                 d2.add(data.get(i));
+////             }else{
+////                 d1.add(data.get(i));
+////             }
+////             
+////         }
+////         
+////        
+////        if (train) {
+////            return d1;
+////        } else {
+////            return d2;
+////        }
+////    }
 
     private void printData() { //Prints out the data set
         for (int i = 0; i < data.size(); i++) {
@@ -149,5 +161,11 @@ public abstract class Parser {
 
     public ArrayList getData() {
         return data;
+    }
+    public ArrayList getAttRange(){
+        return attRange;
+    }
+    public int getBins(){
+        return BINS;
     }
 }
